@@ -1,0 +1,6 @@
+{
+  "name": "The Odyssey - Departmental Events Experience",
+  "description": "A 3D cinematic event landing platform for departmental symposiums, film masterclasses, and screenings themed around The Odyssey.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
