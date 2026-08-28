@@ -1,118 +1,169 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { Volume2, VolumeX } from 'lucide-react';
-import { DepartmentEvent } from '../types';
+import React, { useState } from 'react';
+import {
+  Sparkles,
+  Compass,
+  ArrowRight,
+  Tv,
+  Share2,
+  Cpu,
+  TrendingUp,
+  Trophy,
+  Award,
+  Gamepad2,
+  Layers,
+  RotateCcw,
+} from 'lucide-react';
 
 interface HeroProps {
   onExploreClick: () => void;
-  featuredEvent: DepartmentEvent;
-  onSelectFeatured: (event: DepartmentEvent) => void;
-  selectedCategory: string;
-  onCategorySelect: (cat: string) => void;
-  categories: string[];
+  onOpenCinema: () => void;
+  onOpenShare?: () => void;
+  totalEvents: number;
 }
 
-export const Hero: React.FC<HeroProps> = () => {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [isSoundOn, setIsSoundOn] = useState(false);
+export const Hero: React.FC<HeroProps> = ({
+  onExploreClick,
+  onOpenCinema,
+  onOpenShare,
+  totalEvents,
+}) => {
+  const [animationKey, setAnimationKey] = useState(0);
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
+  const wordSequence = [
+    {
+      word: 'DATA',
+      delay: 0.1,
+      style: {
+        color: '#ffffff',
+        textShadow: '0 0 20px rgba(255, 255, 255, 0.6), 0 0 40px rgba(99, 102, 241, 0.4)',
+      },
+    },
+    {
+      word: 'DIVE',
+      delay: 0.7,
+      style: {
+        color: 'transparent',
+        WebkitTextStroke: '2.5px #818cf8',
+        filter: 'drop-shadow(0 0 16px rgba(129, 140, 248, 0.8))',
+      },
+    },
+    {
+      word: '5.0',
+      delay: 1.35,
+      style: {
+        color: '#fbbf24',
+        textShadow: '0 0 24px rgba(251, 191, 36, 0.85), 0 0 50px rgba(245, 158, 11, 0.5)',
+      },
+    },
+  ];
 
-    video.volume = 0.8;
-    video.preload = 'auto';
-    video.muted = true;
-
-    const playVideo = async () => {
-      try {
-        await video.play();
-      } catch {
-        video.addEventListener(
-          'loadeddata',
-          () => {
-            video.play().catch(() => undefined);
-          },
-          { once: true }
-        );
-      }
-    };
-
-    playVideo();
-  }, []);
-
-  const toggleVideoSound = async () => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    try {
-      const nextSoundState = !isSoundOn;
-      video.muted = !nextSoundState;
-      video.volume = 0.8;
-      await video.play();
-      setIsSoundOn(nextSoundState);
-    } catch {
-      video.muted = true;
-      setIsSoundOn(false);
-    }
+  const handleReplayAnimation = () => {
+    setAnimationKey((prev) => prev + 1);
   };
 
   return (
     <section
-      className="relative w-full overflow-hidden bg-[#02050f] aspect-[16/9] sm:aspect-[16/9] md:aspect-auto md:min-h-[85vh] lg:min-h-screen flex items-center justify-center"
-      id="hero-voyage-section"
+      className="relative w-full overflow-hidden bg-gradient-to-b from-[#090d16] via-[#0b101d] to-[#040711] border-b border-slate-800/80 pt-16 pb-16"
+      id="hero-departmental-section"
     >
-      {/* ── Background Media Container ────────────────────────── */}
-      <div className="absolute inset-0 w-full h-full flex items-center justify-center bg-black/90">
-        {/* Ambient blurred backdrop for letterbox support on mobile/ultrawide */}
-        <video
-          src="/ODY.THEME.mp4"
-          aria-hidden="true"
-          loop
-          autoPlay
-          playsInline
-          muted
-          preload="auto"
-          controls={false}
-          disablePictureInPicture
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-35 blur-2xl md:opacity-20 transition-opacity"
-        />
+      {/* Subtle modern ambient background glow (no video) */}
+      <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-96 bg-gradient-to-b from-indigo-500/15 via-sky-500/8 to-transparent blur-[120px]" />
+      <div className="pointer-events-none absolute -top-20 right-10 w-96 h-96 bg-cyan-500/10 blur-[100px]" />
+      <div className="pointer-events-none absolute top-40 left-10 w-96 h-96 bg-purple-500/10 blur-[100px]" />
 
-        {/* Main Crisp Video — Full horizontal frame shown on mobile, cinematic cover on desktop */}
-        <video
-          ref={videoRef}
-          src="/ODY.THEME.mp4"
-          poster="/odyssey_warrior_bg.jpg"
-          loop
-          autoPlay
-          playsInline
-          muted
-          preload="auto"
-          controls={false}
-          disablePictureInPicture
-          className="relative z-0 h-full w-full object-contain md:object-cover brightness-[0.92] contrast-[1.02] saturate-[1.08] transition-all"
-          onLoadedData={() => videoRef.current?.play().catch(() => undefined)}
-          onClick={() => videoRef.current?.play().catch(() => undefined)}
-        />
+      {/* Main Hero Content */}
+      <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 text-center space-y-6">
+        {/* Eyebrow badge */}
+        <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/40 bg-indigo-500/10 px-4 py-1.5 shadow-[0_0_20px_rgba(99,102,241,0.15)]">
+          <Sparkles className="w-3.5 h-3.5 text-indigo-400 animate-pulse" />
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-300">
+            Annual Departmental Symposium &bull; {totalEvents} Flagship Competitions
+          </span>
+        </div>
 
-        {/* Cinematic Gradient Overlays (gentle top & bottom vignette) */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#02050f]/60 via-transparent to-[#040711]" />
-        <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_80px_rgba(2,5,15,0.7)]" />
+        {/* ── Main DATA DIVE 5.0 Animated Word-by-Word Reveal Heading ── */}
+        <div className="space-y-4 py-2">
+          <h1
+            key={animationKey}
+            className="flex items-center justify-center gap-4 sm:gap-7 flex-wrap my-2 cursor-pointer group"
+            onClick={handleReplayAnimation}
+            title="Click to replay word animation"
+          >
+            {wordSequence.map(({ word, delay, style }) => (
+              <span
+                key={word}
+                className="animated-datadive-word"
+                style={
+                  {
+                    '--delay': `${delay}s`,
+                    ...style,
+                  } as React.CSSProperties
+                }
+              >
+                {word}
+              </span>
+            ))}
+          </h1>
 
-        {/* Sound Toggle Button — Responsive position & sizing */}
-        <button
-          type="button"
-          onClick={toggleVideoSound}
-          className="absolute bottom-3 right-3 sm:bottom-6 sm:right-6 z-20 flex items-center gap-1.5 sm:gap-2 rounded-full border border-amber-400/50 bg-slate-950/85 px-3 py-1.5 sm:px-4 sm:py-2.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-amber-100 shadow-xl backdrop-blur-md transition-all hover:bg-amber-500 hover:text-slate-950 active:scale-95"
-          aria-label={isSoundOn ? 'Mute cinematic video' : 'Play cinematic video with sound'}
-          title={isSoundOn ? 'Mute cinematic video' : 'Play cinematic video with sound'}
-        >
-          {isSoundOn ? (
-            <Volume2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-          ) : (
-            <VolumeX className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-          )}
-          <span>{isSoundOn ? 'Mute Video' : 'Play With Sound'}</span>
-        </button>
+          <p className="max-w-3xl mx-auto text-base sm:text-lg text-slate-300 leading-relaxed font-sans">
+            Flagship technical competitions in Python &amp; Machine Learning, Power BI business intelligence dashboards, fast-paced Shark Tank startup pitches, live ₹80 Crore IPL Auction, and the WWE 2K26 Survival Showdown.
+          </p>
+        </div>
+
+        {/* Action CTAs */}
+        <div className="flex flex-wrap items-center justify-center gap-3.5 pt-2">
+          <button
+            type="button"
+            onClick={onExploreClick}
+            className="flex items-center gap-2.5 px-7 py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs uppercase tracking-wider shadow-[0_0_30px_rgba(99,102,241,0.4)] transition-all hover:scale-105 active:scale-95"
+          >
+            <Layers className="w-4 h-4" />
+            <span>Explore 3D Event Deck</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+
+          <button
+            type="button"
+            onClick={onOpenCinema}
+            className="flex items-center gap-2.5 px-6 py-3.5 rounded-2xl border border-slate-700 bg-slate-900/90 text-slate-200 font-bold text-xs uppercase tracking-wider hover:border-indigo-400 hover:text-white transition-all shadow-lg active:scale-95"
+          >
+            <Tv className="w-4 h-4 text-indigo-400" />
+            <span>Watch Event Trailers</span>
+          </button>
+        </div>
+
+        {/* Key Event Badges Grid — All 5 Flagship Events */}
+        <div className="pt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 max-w-5xl mx-auto text-left">
+          <div className="p-3.5 rounded-2xl border border-cyan-500/20 bg-slate-900/60 backdrop-blur-md">
+            <Cpu className="w-5 h-5 text-cyan-400 mb-1.5" />
+            <span className="text-xs font-bold text-white block">DataVerse</span>
+            <span className="text-[11px] text-slate-400">Python &amp; ML Arena</span>
+          </div>
+
+          <div className="p-3.5 rounded-2xl border border-emerald-500/20 bg-slate-900/60 backdrop-blur-md">
+            <TrendingUp className="w-5 h-5 text-emerald-400 mb-1.5" />
+            <span className="text-xs font-bold text-white block">VizMinds</span>
+            <span className="text-[11px] text-slate-400">Power BI Dashboards</span>
+          </div>
+
+          <div className="p-3.5 rounded-2xl border border-amber-500/20 bg-slate-900/60 backdrop-blur-md">
+            <Award className="w-5 h-5 text-amber-400 mb-1.5" />
+            <span className="text-xs font-bold text-white block">Founders Gone Wild</span>
+            <span className="text-[11px] text-slate-400">Shark Tank Pitches</span>
+          </div>
+
+          <div className="p-3.5 rounded-2xl border border-purple-500/20 bg-slate-900/60 backdrop-blur-md">
+            <Trophy className="w-5 h-5 text-purple-400 mb-1.5" />
+            <span className="text-xs font-bold text-white block">Game of Bids 2026</span>
+            <span className="text-[11px] text-slate-400">₹80Cr IPL Auction</span>
+          </div>
+
+          <div className="p-3.5 rounded-2xl border border-rose-500/20 bg-slate-900/60 backdrop-blur-md col-span-2 sm:col-span-1">
+            <Gamepad2 className="w-5 h-5 text-rose-400 mb-1.5" />
+            <span className="text-xs font-bold text-white block">Survival Showdown</span>
+            <span className="text-[11px] text-slate-400">WWE 2K26 Knockout</span>
+          </div>
+        </div>
       </div>
     </section>
   );

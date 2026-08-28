@@ -73,4 +73,11 @@ export interface DepartmentEvent {
   featured?: boolean;
 }
 
-export type ViewMode = '3d-grid' | 'voyage-timeline' | 'cinematic-reel';
+export type ViewMode = 
+  | '3d-orbit-arena' 
+  | '3d-holo-ring' 
+  | '3d-voyage-warp' 
+  | '3d-holo-cinema' 
+  | '3d-grid';
+
+export type CameraPreset = 'front' | 'perspective' | 'top' | 'focus';

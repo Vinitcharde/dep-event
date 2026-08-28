@@ -15,12 +15,12 @@
     font-family: var(--font-sans);
     background-color: #040711;
     color: #e2e8f0;
-    overflow-y: auto;
+    overflow-x: hidden;
   }
 
   h1, h2, h3, .font-epic {
     font-family: var(--font-cinzel);
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
   }
 
   .font-serif-cormorant {
@@ -28,98 +28,55 @@
   }
 }
 
-.fixed-background {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  z-index: 0;
-  pointer-events: none;
-  background: #030611;
+/* ── Custom Scrollbar ────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
 }
 
-.fixed-background__layer {
-  position: absolute;
-  inset: -8% -6%;
-  background-size: cover;
-  background-position: center;
-  transform: scale(1.09);
-  filter: brightness(0.72) contrast(1.15) saturate(0.9);
-  opacity: 0;
-  animation: odysseyBackgroundShift 22s ease-in-out infinite alternate;
+::-webkit-scrollbar-track {
+  background: #040817;
 }
 
-.fixed-background__layer--one {
-  background-image: url('/odyssey_warrior_bg.jpg');
-  animation-delay: 0s;
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+  border: 1px solid rgba(99, 102, 241, 0.3);
 }
 
-.fixed-background__layer--two {
-  background-image: url('/odyssey_bg.png');
-  animation-delay: 7s;
+::-webkit-scrollbar-thumb:hover {
+  background: #6366f1;
 }
 
-.fixed-background__layer--three {
-  background-image: url('/image.png');
-  animation-delay: 14s;
+/* ── Neon Text & Hologram Effects ────────────────────────────── */
+.neon-text-cyan {
+  color: #38bdf8;
+  text-shadow: 0 0 12px rgba(56, 189, 248, 0.7), 0 0 24px rgba(56, 189, 248, 0.4);
 }
 
-.fixed-background__vignette {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
+.neon-text-emerald {
+  color: #34d399;
+  text-shadow: 0 0 12px rgba(52, 211, 153, 0.7), 0 0 24px rgba(52, 211, 153, 0.4);
 }
 
-.fixed-background__vignette--top {
-  inset: 0 0 auto 0;
-  height: 200px;
-  background: linear-gradient(to bottom, rgba(2, 5, 15, 0.92), rgba(2, 5, 15, 0.18), transparent);
+.neon-text-amber {
+  color: #fbbf24;
+  text-shadow: 0 0 12px rgba(251, 191, 36, 0.7), 0 0 24px rgba(251, 191, 36, 0.4);
 }
 
-.fixed-background__vignette--bottom {
-  inset: auto 0 0 0;
-  height: 260px;
-  background: linear-gradient(to top, rgba(2, 4, 11, 0.96), rgba(2, 4, 11, 0.5), transparent);
+.neon-text-violet {
+  color: #c084fc;
+  text-shadow: 0 0 12px rgba(192, 132, 252, 0.7), 0 0 24px rgba(192, 132, 252, 0.4);
 }
 
-.fixed-background__vignette--left {
-  inset: 0 auto 0 0;
-  width: 140px;
-  background: linear-gradient(to right, rgba(2, 4, 11, 0.72), transparent);
+.neon-text-indigo {
+  color: #818cf8;
+  text-shadow: 0 0 14px rgba(129, 140, 248, 0.8), 0 0 28px rgba(99, 102, 241, 0.5);
 }
 
-.fixed-background__vignette--right {
-  inset: 0 0 0 auto;
-  width: 140px;
-  background: linear-gradient(to left, rgba(2, 4, 11, 0.72), transparent);
-}
-
-@keyframes odysseyBackgroundShift {
-  0% {
-    opacity: 0;
-    transform: scale(1.08) translate3d(0, 0, 0);
-  }
-  18% {
-    opacity: 0.8;
-  }
-  50% {
-    opacity: 0.95;
-    transform: scale(1.12) translate3d(-0.8%, 1.2%, 0);
-  }
-  100% {
-    opacity: 0.52;
-    transform: scale(1.18) translate3d(1.2%, -1%, 0);
-  }
-}
-
-/* 3D Perspective Utilities */
-.perspective-1000 {
-  perspective: 1000px;
-}
-
-.perspective-2000 {
-  perspective: 2000px;
+/* ── 3D Card Perspective Utilities ────────────────────────────── */
+.perspective-1200 {
+  perspective: 1200px;
 }
 
 .preserve-3d {
@@ -130,55 +87,53 @@
   backface-visibility: hidden;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+/* ── DATA DIVE 5.0 Sequential Word-by-Word Animation ──────────── */
+@keyframes dataDiveWordEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.72) rotateX(35deg);
+    filter: blur(10px);
+    letter-spacing: 0.35em;
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1.08) rotateX(-6deg);
+    filter: blur(0px);
+    letter-spacing: 0.09em;
+  }
+  80% {
+    transform: translateY(2px) scale(0.98) rotateX(2deg);
+    letter-spacing: 0.08em;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0deg);
+    filter: blur(0px);
+    letter-spacing: 0.08em;
+  }
 }
 
-::-webkit-scrollbar-track {
-  background: #060a17;
+@keyframes wordGlowLoop {
+  0%, 100% {
+    filter: drop-shadow(0 0 12px rgba(99, 102, 241, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 28px rgba(99, 102, 241, 0.85)) drop-shadow(0 0 50px rgba(56, 189, 248, 0.5));
+  }
 }
 
-::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border-radius: 4px;
-  border: 1px solid rgba(212, 175, 55, 0.2);
+.animated-datadive-word {
+  display: inline-block;
+  opacity: 0;
+  animation:
+    dataDiveWordEntrance 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+    wordGlowLoop 4s ease-in-out infinite;
+  animation-delay: var(--delay, 0s), calc(var(--delay, 0s) + 0.9s);
+  font-family: var(--font-cinzel);
+  font-size: clamp(3rem, 8vw, 5.8rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  user-select: none;
 }
-
-::-webkit-scrollbar-thumb:hover {
-  background: #d4af37;
-}
-
-/* Gold Shimmer & Glow Effects */
-.gold-gradient-text {
-  background: linear-gradient(135deg, #fff2c6 0%, #dfb743 45%, #9b7218 80%, #ffd978 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.bronze-gradient-text {
-  background: linear-gradient(135deg, #f8dfcf 0%, #c98a58 50%, #8c4c23 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.gold-border-glow {
-  box-shadow: 0 0 25px -5px rgba(212, 175, 55, 0.15), inset 0 0 15px -5px rgba(212, 175, 55, 0.08);
-}
-
-.aegean-glow {
-  box-shadow: 0 0 35px -8px rgba(37, 99, 235, 0.2), inset 0 0 20px -8px rgba(14, 165, 233, 0.1);
-}
-
-/* Greek Key geometric divider pattern */
-.greek-key-pattern {
-  background-image: repeating-linear-gradient(
-    90deg,
-    rgba(212, 175, 55, 0.15) 0px,
-    rgba(212, 175, 55, 0.15) 12px,
-    transparent 12px,
-    transparent 24px
-  );
-}
-

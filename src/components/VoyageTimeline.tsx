@@ -1,19 +1,19 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Compass, Calendar, Clock, MapPin, QrCode, ArrowRight, Anchor } from 'lucide-react';
+import { Compass, Calendar, Clock, MapPin, ArrowRight } from 'lucide-react';
 import { DepartmentEvent } from '../types';
 
 interface VoyageTimelineProps {
   events: DepartmentEvent[];
   onSelectEvent: (event: DepartmentEvent) => void;
-  onRegisterEvent: (event: DepartmentEvent) => void;
+  onRegisterEvent?: (event: DepartmentEvent) => void;
 }
 
-export const VoyageTimeline: React.FC<VoyageTimelineProps> = ({ events, onSelectEvent, onRegisterEvent }) => {
+export const VoyageTimeline: React.FC<VoyageTimelineProps> = ({ events, onSelectEvent }) => {
   return (
-    <div className="relative py-8" id="odyssey-voyage-timeline-section">
+    <div className="relative py-8" id="department-timeline-section">
       {/* Central Guide Line */}
-      <div className="hidden md:block absolute left-1/2 top-10 bottom-10 w-0.5 -translate-x-1/2 bg-gradient-to-b from-amber-400 via-amber-500/50 to-amber-700/20" />
+      <div className="hidden md:block absolute left-1/2 top-10 bottom-10 w-0.5 -translate-x-1/2 bg-gradient-to-b from-indigo-500 via-sky-500/50 to-slate-800" />
 
       <div className="space-y-12 relative">
         {events.map((event, index) => {
@@ -32,33 +32,33 @@ export const VoyageTimeline: React.FC<VoyageTimelineProps> = ({ events, onSelect
             >
               {/* Event Content Box */}
               <div className="w-full md:w-1/2">
-                <div className="group relative rounded-2xl border border-amber-500/20 bg-gradient-to-b from-slate-900/95 via-[#070c1a] to-[#04060f] p-5 sm:p-6 shadow-2xl backdrop-blur-xl hover:border-amber-400/50 transition-all duration-300">
+                <div className="group relative rounded-3xl border border-slate-800 bg-gradient-to-b from-slate-900/95 via-[#070c1a] to-[#04060f] p-6 shadow-2xl backdrop-blur-xl hover:border-indigo-500/50 transition-all duration-300">
                   <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500/10 text-amber-300 border border-amber-500/30">
-                      <Compass className="w-3.5 h-3.5 text-amber-400" />
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-indigo-500/10 text-indigo-300 border border-indigo-500/30">
+                      <Compass className="w-3.5 h-3.5 text-indigo-400" />
                       {event.voyageMilestone}
                     </span>
                     <span className="text-xs text-slate-400 font-mono">{event.category}</span>
                   </div>
 
-                  <h3 className="font-epic text-lg sm:text-xl font-bold text-slate-100 group-hover:text-amber-300 transition-colors">
+                  <h3 className="font-epic text-lg sm:text-xl font-bold text-white group-hover:text-indigo-300 transition-colors">
                     {event.title}
                   </h3>
-                  <p className="font-serif-cormorant text-sm italic text-amber-200/80 mt-1 mb-4">
+                  <p className="font-serif-cormorant text-sm italic text-slate-300 mt-1 mb-4">
                     {event.subtitle}
                   </p>
 
-                  <div className="grid grid-cols-2 gap-2 text-xs text-slate-300 bg-slate-950/60 p-3 rounded-xl border border-amber-500/10 mb-4">
+                  <div className="grid grid-cols-2 gap-2 text-xs text-slate-300 bg-slate-950/70 p-3 rounded-xl border border-slate-800 mb-4">
                     <div className="flex items-center gap-2">
-                      <Calendar className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
+                      <Calendar className="w-3.5 h-3.5 text-indigo-400 flex-shrink-0" />
                       <span>{event.date}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Clock className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
+                      <Clock className="w-3.5 h-3.5 text-indigo-400 flex-shrink-0" />
                       <span>{event.time}</span>
                     </div>
                     <div className="col-span-2 flex items-center gap-2">
-                      <MapPin className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
+                      <MapPin className="w-3.5 h-3.5 text-indigo-400 flex-shrink-0" />
                       <span className="truncate">{event.venue.name} ({event.venue.hall})</span>
                     </div>
                   </div>
@@ -67,38 +67,29 @@ export const VoyageTimeline: React.FC<VoyageTimelineProps> = ({ events, onSelect
                     {event.description}
                   </p>
 
-                  <div className="flex items-center justify-between gap-3 pt-2 border-t border-amber-500/15">
+                  <div className="flex items-center justify-between gap-3 pt-3 border-t border-slate-800">
                     <button
                       type="button"
                       onClick={() => onSelectEvent(event)}
-                      className="text-xs font-bold text-amber-400 hover:text-amber-300 flex items-center gap-1.5 transition-colors"
+                      className="text-xs font-bold text-indigo-400 hover:text-indigo-300 flex items-center gap-1.5 transition-colors"
                     >
-                      <span>Examine Milestone Dossier</span>
+                      <span>Examine Dossier &amp; Rules</span>
                       <ArrowRight className="w-3.5 h-3.5" />
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => onRegisterEvent(event)}
-                      className="px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition-all shadow-md"
-                    >
-                      <QrCode className="w-3 h-3 text-slate-950" />
-                      <span>Pass & QR</span>
                     </button>
                   </div>
                 </div>
               </div>
 
-              {/* Central Nautical Node */}
-              <div className="relative z-10 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border-2 border-amber-400 bg-[#040711] shadow-[0_0_20px_rgba(212,175,55,0.4)]">
-                <Anchor className="h-5 w-5 text-amber-400" />
+              {/* Central Node Number */}
+              <div className="relative z-10 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border-2 border-indigo-400 bg-[#040711] shadow-[0_0_20px_rgba(99,102,241,0.4)] font-epic text-xs font-black text-indigo-300">
+                0{index + 1}
               </div>
 
-              {/* Media Preview Box on Opposite Side */}
+              {/* Media Preview Box (clean, no button overlay) */}
               <div className="w-full md:w-1/2">
                 <div
                   onClick={() => onSelectEvent(event)}
-                  className="cursor-pointer group relative aspect-[16/9] overflow-hidden rounded-2xl border border-amber-500/20 bg-slate-950 shadow-xl"
+                  className="cursor-pointer group relative aspect-[16/9] overflow-hidden rounded-2xl border border-slate-800 bg-slate-950 shadow-xl"
                 >
                   <img
                     src={event.heroImage}
@@ -106,9 +97,9 @@ export const VoyageTimeline: React.FC<VoyageTimelineProps> = ({ events, onSelect
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-amber-200">
+                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-indigo-200">
                     <span className="font-semibold">{event.badge}</span>
-                    <span className="text-[11px] text-slate-300">{event.venue.seatsLeft} seats left</span>
+                    <span className="text-[11px] text-indigo-300/80 font-medium">{event.category}</span>
                   </div>
                 </div>
               </div>

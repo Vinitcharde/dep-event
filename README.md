@@ -25,7 +25,7 @@ All events are scheduled for **September 10, 2026** across campus venues:
 | **Act II** | **VizMinds** | *Data Visualization* | Beginner-friendly Power BI & BI challenge designed for 1st/2nd year students. Prize pool: **₹3,000**. |
 | **Act III** | **Founders Gone Wild** | *Entrepreneurship* | Fast-paced Shark Tank-style startup ideation challenge with wild industry-technology combinations. |
 | **Act IV** | **Game of Bids 2026** | *Sports & Strategy* | Ultimate IPL live auction experience with **₹80 Crore virtual purse** and 2026 IPL player pools. |
-| **Act V** | **The Mythic Frame Gala** | *Keynote & 70mm Screen* | Annual keynote symposium & 70mm archival screening celebrating Homeric epics and cinema history. |
+| **Act V** | **Survival Showdown** | *Sports & Gaming Strategy* | WWE 2K26 knockout tournament with Triple Threat elimination matches & Tag Team finals to crown Top Dog. |
 
 ---
 

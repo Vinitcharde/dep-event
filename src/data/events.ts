@@ -15,7 +15,7 @@ export const INITIAL_EVENTS: DepartmentEvent[] = [
       name: 'Department of Data Science',
       hall: 'Technical Lab & Model-Building Arena',
       address: 'Department of Data Science, Campus Innovation Center',
-      mapUrl: 'https://maps.google.com/?q=Department+of+Data+Science',
+      mapUrl: 'https://maps.app.goo.gl/wv9eUrZ8erRhXhNi8',
       isVirtual: false,
       capacity: 120,
       seatsLeft: 120,
@@ -98,7 +98,7 @@ export const INITIAL_EVENTS: DepartmentEvent[] = [
       name: 'Department of Data Science',
       hall: 'Visualization Lab & Presentation Arena',
       address: 'Department of Data Science, Campus Innovation Center',
-      mapUrl: 'https://maps.google.com/?q=Department+of+Data+Science',
+      mapUrl: 'https://maps.app.goo.gl/wv9eUrZ8erRhXhNi8',
       isVirtual: false,
       capacity: 120,
       seatsLeft: 120,
@@ -180,7 +180,7 @@ export const INITIAL_EVENTS: DepartmentEvent[] = [
       name: 'Department of Data Science',
       hall: 'Innovation Arena & Pitch Stage',
       address: 'Department of Data Science, Campus Innovation Center',
-      mapUrl: 'https://maps.google.com/?q=Department+of+Data+Science',
+      mapUrl: 'https://maps.app.goo.gl/wv9eUrZ8erRhXhNi8',
       isVirtual: false,
       capacity: 150,
       seatsLeft: 150,
@@ -263,7 +263,7 @@ export const INITIAL_EVENTS: DepartmentEvent[] = [
       name: 'Department of Data Science',
       hall: 'Auction War Room & Strategy Arena',
       address: 'Department of Data Science, Campus Innovation Center',
-      mapUrl: 'https://maps.google.com/?q=Department+of+Data+Science',
+      mapUrl: 'https://maps.app.goo.gl/wv9eUrZ8erRhXhNi8',
       isVirtual: false,
       capacity: 200,
       seatsLeft: 200,
@@ -342,97 +342,94 @@ export const INITIAL_EVENTS: DepartmentEvent[] = [
 
   /* ─────────────────────────── ACT V ─────────────────────────── */
   {
-    id: 'odyssey-opening-gala',
-    title: 'The Mythic Frame: Homer to Kubrick & The Modern Epic',
-    subtitle: 'Annual Departmental Keynote & 70mm Retrospective Gala',
-    category: 'Keynote Gala',
-    badge: 'Opening Gala & 70mm Screen',
+    id: 'survival-showdown-2026',
+    title: 'Survival Showdown',
+    subtitle: 'Edition 2 — Intense WWE 2K26 Knockout & Tag Team Championship Tournament',
+    category: 'Sports & Gaming Strategy',
+    badge: 'WWE 2K26 Knockout Tournament',
     date: 'September 10, 2026',
-    isoDate: '2026-09-10T18:30:00Z',
-    time: '18:30 - 22:00',
+    isoDate: '2026-09-10T14:00:00Z',
+    time: 'Schedule to be announced',
     venue: {
-      name: 'Amphitheater of the Muses',
-      hall: 'Auditorium Magna & Widescreen Pavilion',
-      address: 'Department of Cinema & Classical Studies, Campus West, Room 101',
-      mapUrl: 'https://maps.google.com/?q=Department+of+Cinema+and+Classical+Studies',
-      isVirtual: true,
-      streamUrl: 'https://odyssey-cinema.edu/live/gala-stream',
-      capacity: 350,
-      seatsLeft: 42,
+      name: 'Department of Data Science',
+      hall: 'WWE 2K26 Arena & Console Gaming Stage',
+      address: 'Department of Data Science, Campus Innovation Center',
+      mapUrl: 'https://maps.app.goo.gl/wv9eUrZ8erRhXhNi8',
+      isVirtual: false,
+      capacity: 150,
+      seatsLeft: 150,
     },
-    heroImage: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=1400&auto=format&fit=crop',
+    heroImage: '/survival_showdown_hero.jpg',
     videoTrailerUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
     gallery: [
       {
-        url: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=1200&auto=format&fit=crop',
-        caption: 'Classical marble colonnades and high-contrast Mediterranean architectural staging'
+        url: '/survival_showdown_hero.jpg',
+        caption: 'Survival Showdown WWE 2K26 Championship Finals main arena & championship belts'
       },
       {
-        url: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=1200&auto=format&fit=crop',
-        caption: 'Large format 70mm film camera rigs on Aegean shoreline sets'
+        url: '/survival_showdown_arena.jpg',
+        caption: 'Pro console battle stations & tournament knockout bracket board'
       },
       {
-        url: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1200&auto=format&fit=crop',
-        caption: 'Homeric maritime navigation through ancient Greek archipelagos'
+        url: '/survival_showdown_tag_team.jpg',
+        caption: 'Finalists battling in the intense Tag Team Championship Match'
       }
     ],
-    description: 'An expansive keynote symposium exploring how Homer\'s *Odyssey* forged the architectural blueprint for cinematic storytelling—from Mario Camerini\'s 1954 *Ulisse* to Stanley Kubrick\'s *2001: A Space Odyssey*, and Christopher Nolan\'s 2026 epic adaptation *The Odyssey*.',
-    synopsis: 'Odysseus\' ten-year struggle across the Mediterranean is not merely an ancient poem—it is the primal template for visual voyage, nonlinear memory, monstrous apparitions, and spiritual return. In this gala opening, Department Chair Dr. Helena Thorne and renowned cinematographer Marcos Castelli deconstruct the grammar of mythic scale, focal depth, and celestial navigation across three eras of cinema.',
+    description: 'Survival Showdown returns for its second edition as an intense WWE 2K26 knockout tournament where participants compete to become the ultimate Top Dog. Players can enter solo and receive a randomly allotted teammate or bring their own partner to compete as a team. The tournament begins with Triple Threat knockout matches, where only the winning team advances while the others are eliminated. After progressing through multiple rounds, the final two surviving teams will face each other in an intense Tag Team Match to crown the champions of Survival Showdown.',
+    synopsis: 'Survival Showdown returns for its second edition as an intense WWE 2K26 knockout tournament where participants compete to become the ultimate Top Dog. Players can enter solo and receive a randomly allotted teammate or bring their own partner to compete as a team. The tournament begins with Triple Threat knockout matches, where only the winning team advances while the others are eliminated. After progressing through multiple rounds, the final two surviving teams will face each other in an intense Tag Team Match to crown the champions of Survival Showdown.',
     speakers: [
       {
-        name: 'Dr. Helena Thorne',
-        role: 'Professor of Classical Reception & Epic Poetics',
-        affiliation: 'Oxford & Department of Hellenic Studies',
-        avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop',
-        bio: 'Author of *The Widescreen Nostos: Homeric Voyages in 20th Century Cinema*. Dr. Thorne has curated international retrospectives at the Venice Film Festival and the BFI.'
+        name: 'Survival Showdown Arena Marshals',
+        role: 'Head Referees & Tournament Directors',
+        affiliation: 'Department of Data Science — Esports Division',
+        avatar: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=400&auto=format&fit=crop',
+        bio: 'Tournament directors overseeing matchmaking, console setup configurations, refereeing, and the Top Dog championship coronation.'
       },
       {
-        name: 'Marcos Castelli, ASC',
-        role: 'Cinematographer & Visual Stylist',
-        affiliation: 'Academy of Motion Picture Arts and Sciences',
-        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop',
-        bio: 'Director of Photography behind acclaimed historical epics and recipient of the Silver Frog for Best Mediterranean Cinematography.'
+        name: 'WWE 2K26 Live Shoutcasters',
+        role: 'Match Commentators & Ring Announcers',
+        affiliation: 'DataDive Esports Guild',
+        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop',
+        bio: 'Electric ring-side commentators providing live play-by-play coverage, fighter introductions, and knockout highlight breakdowns.'
       }
     ],
     agenda: [
       {
-        time: '18:30 - 19:15',
-        title: 'Arrival, Bronze Courtyard Reception & Astrolabe Exhibition',
-        description: 'Guests gather in the illuminated Aegean foyer. Archival exhibition of vintage Panavision lenses and Homeric navigation charts.'
+        time: 'Round 1: Matchmaking & Check-In',
+        title: 'Solo Allotment & Tag Team Roster Check-In',
+        description: 'Solo entrants receive their randomly allotted teammate while pre-registered duos confirm roster slots. Rules briefing and controller setups.'
       },
       {
-        time: '19:15 - 20:30',
-        title: 'Keynote Address: "The Lens of Nostos: Longing for Ithaca in 2.39:1"',
-        speaker: 'Dr. Helena Thorne',
-        description: 'A deep-dive into visual motifs of home, exile, sirens, and the cinematic gaze across 70 years of film history.'
+        time: 'Round 2: Elimination Stage',
+        title: 'Triple Threat Knockout Matches',
+        description: 'The tournament begins with intense Triple Threat knockout matches. Only the single winning team advances while the others are eliminated.'
       },
       {
-        time: '20:30 - 21:30',
-        title: 'Special 70mm Archival Screening: Restored Sequences & Discussion',
-        speaker: 'Marcos Castelli, ASC',
-        description: 'Exclusive projection of ultra-high definition restorations with live commentary on anamorphic distortion and lighting.'
+        time: 'Round 3: Knockout Progression',
+        title: 'Multi-Round Knockout Battles',
+        description: 'Progressing through multiple rounds of high-intensity knockout matches to filter down to the final two survivor teams.'
       },
       {
-        time: '21:30 - 22:00',
-        title: 'Q&A, Departmental Networking & Gala Toast',
-        description: 'Interactive audience Q&A and departmental gathering with Mediterranean culinary pairings.'
+        time: 'Grand Finale',
+        title: 'Tag Team Championship Match — Top Dog Coronation',
+        description: 'The final two surviving teams face each other in an intense Tag Team Match to crown the champions of Survival Showdown.'
       }
     ],
     registration: {
-      url: 'https://odyssey-events.edu/register/gala-2026',
-      qrValue: 'https://odyssey-events.edu/register/gala-2026?src=qr_landing&ref=dept_cinema',
-      deadline: 'September 7, 2026',
-      fee: 'Free for Students / ₹200 General Public',
+      url: 'https://datadive-events.edu/register/survival-showdown',
+      qrValue: 'https://datadive-events.edu/register/survival-showdown?src=qr_landing',
+      deadline: 'September 10, 2026',
+      fee: 'Schedule to be announced',
       perks: [
-        'Commemorative Silk-Screened Odyssey Film Poster',
-        'VIP Reserved Seating in Amphitheater Magna',
-        'Access to Archival 4K Recording & Syllabus Pack',
-        'Invitation to Post-Gala Reception'
+        'Survival Showdown Top Dog Championship Trophy & Title Belts',
+        'Official Winner & Runner-Up Certificates from Department of Data Science',
+        'Solo (random partner allotment) & Duo (bring your partner) entry modes',
+        'Live big-screen tournament broadcast & commentary stage'
       ]
     },
-    voyageMilestone: 'Act V: The Grand Homecoming — Cinematic Odyssey',
-    curatorNotes: 'Dress code: Festive / Smart Casual with gold or Mediterranean blue accents. 70mm projection supported by the National Film Archive.',
-    tags: ['Epic Cinema', 'Keynote', '70mm Screening', 'Homeric Poetics', 'Gala'],
+    voyageMilestone: 'Act V: The Ultimate Knockout — Survival Showdown',
+    curatorNotes: 'Participants can register as a solo player (a teammate will be randomly assigned) or with their own chosen partner. Triple Threat knockout rules apply in early rounds.',
+    tags: ['Survival Showdown', 'WWE 2K26', 'Knockout Tournament', 'Top Dog', 'Triple Threat', 'Tag Team', 'Esports', 'Gaming', 'DataDive 5.0'],
     featured: true
   },
 ];

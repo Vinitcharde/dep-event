@@ -1,28 +1,57 @@
-import React, { useState, useMemo, useRef } from 'react';
-import { Navbar } from './components/Navbar';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Hero } from './components/Hero';
 import { FixedBackground } from './components/FixedBackground';
-import { EventCard3D } from './components/EventCard3D';
+import { ThreeBackground } from './components/ThreeBackground';
+import { SpatialDeck3D } from './components/SpatialDeck3D';
+import { DepartmentVideoTheater } from './components/DepartmentVideoTheater';
 import { EventModal } from './components/EventModal';
 import { RegistrationModal } from './components/RegistrationModal';
 import { VoyageTimeline } from './components/VoyageTimeline';
-import { MediaShowcase } from './components/MediaShowcase';
 import { EventManagerDrawer } from './components/EventManagerDrawer';
 import { Footer } from './components/Footer';
+import { ShareModal } from './components/ShareModal';
 import { INITIAL_EVENTS } from './data/events';
-import { DepartmentEvent, ViewMode } from './types';
-import { Compass, Sparkles, Filter, AlertCircle, ArrowUpRight } from 'lucide-react';
+import { DepartmentEvent } from './types';
+import {
+  Compass,
+  Share2,
+  Search,
+  Calendar,
+} from 'lucide-react';
 
 export default function App() {
   const [events, setEvents] = useState<DepartmentEvent[]>(INITIAL_EVENTS);
-  const [viewMode, setViewMode] = useState<ViewMode>('3d-grid');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All Tracks');
   const [selectedEvent, setSelectedEvent] = useState<DepartmentEvent | null>(null);
   const [registeringEvent, setRegisteringEvent] = useState<DepartmentEvent | null>(null);
   const [isCMSOpen, setIsCMSOpen] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [sharingEvent, setSharingEvent] = useState<DepartmentEvent | null>(null);
 
-  const eventsGridRef = useRef<HTMLDivElement>(null);
+  const eventsSectionRef = useRef<HTMLDivElement>(null);
+  const videoSectionRef = useRef<HTMLDivElement>(null);
+
+  // Deep-linking: automatically open shared event if ?event=... or #event-id is in URL
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const eventParam = params.get('event');
+      const hash = window.location.hash.replace('#', '');
+      const targetId = eventParam || hash;
+
+      if (targetId) {
+        const match = events.find(
+          (e) => e.id === targetId || e.id.toLowerCase() === targetId.toLowerCase()
+        );
+        if (match) {
+          setSelectedEvent(match);
+        }
+      }
+    } catch (e) {
+      console.error('URL params parse error:', e);
+    }
+  }, [events]);
 
   // Extract unique categories for filter pills
   const categories = useMemo(() => {
@@ -45,13 +74,15 @@ export default function App() {
     });
   }, [events, selectedCategory, searchQuery]);
 
-  const featuredEvent = useMemo(() => {
-    return events.find((e) => e.featured) || events[0];
-  }, [events]);
-
   const handleExploreClick = () => {
-    if (eventsGridRef.current) {
-      eventsGridRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (eventsSectionRef.current) {
+      eventsSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleOpenCinema = () => {
+    if (videoSectionRef.current) {
+      videoSectionRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -64,149 +95,155 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#040711] text-slate-100 relative selection:bg-amber-500/30 selection:text-amber-100 flex flex-col font-sans">
-      {/* Fixed Viewport Background - Only Content/Text Scrolls */}
+    <div className="min-h-screen bg-[#040711] text-slate-100 relative selection:bg-indigo-500/30 selection:text-indigo-100 flex flex-col font-sans">
+      {/* Fixed Ambient Background & 3D Interactive Particle Field */}
       <FixedBackground />
+      <ThreeBackground />
 
-      {/* Main App Container */}
+      {/* Main Content Layer */}
       <div className="relative z-10 flex-1 flex flex-col">
-        {/* Hero Section */}
+        {/* Professional Hero Section (DATA DIVE 5.0 Word-by-Word Animation) */}
         <Hero
           onExploreClick={handleExploreClick}
-          featuredEvent={featuredEvent}
-          onSelectFeatured={(ev) => setSelectedEvent(ev)}
-          selectedCategory={selectedCategory}
-          onCategorySelect={setSelectedCategory}
-          categories={categories}
+          onOpenCinema={handleOpenCinema}
+          onOpenShare={() => {
+            setSharingEvent(null);
+            setIsShareModalOpen(true);
+          }}
+          totalEvents={events.length}
         />
 
-
         {/* Main Content Area */}
-        <main ref={eventsGridRef} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex-1 py-6">
-
-          {/* Section Header — Premium Professional */}
-          <div className="relative pb-8 mb-8">
-            {/* Gradient divider at bottom */}
-            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
-
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-              <div>
-                {/* Eyebrow label */}
-                <div className="inline-flex items-center gap-2 mb-2 rounded-full border border-amber-500/20 bg-amber-500/5 px-3 py-1">
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-60" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-400" />
-                  </span>
-                  <Compass className="w-3 h-3 text-amber-400" />
-                  <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-amber-400">
-                    Departmental Curriculum &amp; Symposium Roster
-                  </span>
-                </div>
-
-                {/* Main heading */}
-                <h2 className="font-epic text-2xl sm:text-3xl lg:text-4xl font-black text-slate-100 leading-tight">
-                  {viewMode === '3d-grid' && (
-                    <>
-                      <span className="text-white">Active</span>{' '}
-                      <span className="text-amber-400">Departmental</span>{' '}
-                      <span className="text-white">Events</span>
-                    </>
-                  )}
-                  {viewMode === 'voyage-timeline' && 'The Homeric Voyage: Milestones & Masterclasses'}
-                  {viewMode === 'cinematic-reel' && 'Cinematic Archives & Production Reels'}
-                </h2>
-
-                {/* Sub-label */}
-                <p className="mt-1.5 text-xs text-slate-500 font-serif-cormorant italic">
-                  Explore upcoming workshops, symposiums &amp; live competitions across all departments.
-                </p>
+        <main
+          ref={eventsSectionRef}
+          className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex-1 py-10 w-full"
+        >
+          {/* Section Header & Share Bar */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-800/80 pb-6 mb-8">
+            <div>
+              <div className="inline-flex items-center gap-2 mb-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-indigo-300">
+                <Compass className="w-3.5 h-3.5 text-indigo-400" />
+                <span>DATA DIVE 5.0 &bull; Flagship Competitions</span>
               </div>
-
-              {/* Count + filter */}
-              <div className="flex flex-col items-end gap-1.5 shrink-0">
-                <div className="inline-flex items-center gap-2 rounded-xl border border-slate-700/60 bg-slate-800/50 px-3 py-1.5">
-                  <Sparkles className="w-3 h-3 text-amber-400" />
-                  <span className="text-xs text-slate-300">
-                    Showing{' '}
-                    <strong className="text-amber-300 font-bold">{filteredEvents.length}</strong>
-                    {' '}of{' '}
-                    <strong className="text-slate-200">{events.length}</strong>{' '}events
-                  </span>
-                </div>
-                {selectedCategory !== 'All Tracks' && (
-                  <button
-                    type="button"
-                    onClick={() => setSelectedCategory('All Tracks')}
-                    className="flex items-center gap-1 text-[11px] font-semibold text-amber-400 hover:text-amber-300 transition-colors"
-                  >
-                    <Filter className="w-3 h-3" /> Clear filter
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* View Mode Switching */}
-          {filteredEvents.length === 0 ? (
-            <div className="py-16 text-center rounded-2xl border border-dashed border-amber-500/30 bg-slate-900/40 p-8 space-y-4">
-              <AlertCircle className="w-10 h-10 text-amber-400 mx-auto" />
-              <h3 className="font-epic text-lg font-bold text-slate-200">No events matched your criteria</h3>
-              <p className="text-xs text-slate-400 max-w-md mx-auto">
-                No symposiums or workshops match query "{searchQuery}" in category "{selectedCategory}".
+              <h2 className="font-epic text-2xl sm:text-3xl font-extrabold text-white">
+                Departmental Events &amp; Symposium
+              </h2>
+              <p className="mt-1 text-xs sm:text-sm text-slate-400 font-serif-cormorant italic">
+                Select an event to explore detailed agendas, round structures, jury profiles, and prize pools.
               </p>
+            </div>
+
+            {/* Share Website Button */}
+            <div className="flex items-center gap-3 self-start md:self-auto">
               <button
                 type="button"
                 onClick={() => {
-                  setSearchQuery('');
-                  setSelectedCategory('All Tracks');
+                  setSharingEvent(null);
+                  setIsShareModalOpen(true);
                 }}
-                className="px-4 py-2 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-700 bg-slate-900/90 text-slate-200 text-xs font-bold hover:bg-indigo-600 hover:text-white transition-all shadow-md active:scale-95"
               >
-                Reset Search Filters
+                <Share2 className="w-3.5 h-3.5" />
+                <span>Share Platform</span>
               </button>
             </div>
-          ) : (
-            <>
-              {/* 1. 3D Voyager Grid View */}
-              {viewMode === '3d-grid' && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filteredEvents.map((event) => (
-                    <EventCard3D
-                      key={event.id}
-                      event={event}
-                      onSelect={(ev) => setSelectedEvent(ev)}
-                    />
-                  ))}
-                </div>
-              )}
+          </div>
 
-              {/* 2. Voyage Timeline View */}
-              {viewMode === 'voyage-timeline' && (
-                <VoyageTimeline
-                  events={filteredEvents}
-                  onSelectEvent={(ev) => setSelectedEvent(ev)}
-                  onRegisterEvent={(ev) => setRegisteringEvent(ev)}
-                />
+          {/* Search & Category Filter Pills */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3 rounded-2xl border border-slate-800 bg-slate-950/70 backdrop-blur-md mb-8">
+            <div className="relative w-full sm:w-80">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search events, Python, ML, IPL, Shark Tank..."
+                className="w-full pl-10 pr-3 py-2 text-xs rounded-xl bg-slate-900 border border-slate-700/60 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-white"
+                >
+                  Clear
+                </button>
               )}
+            </div>
 
-              {/* 3. Cinematic Media Reel View */}
-              {viewMode === 'cinematic-reel' && (
-                <MediaShowcase
-                  events={filteredEvents}
-                  onSelectEvent={(ev) => setSelectedEvent(ev)}
-                />
-              )}
-            </>
-          )}
+            <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto scrollbar-none pb-1 sm:pb-0">
+              {categories.map((cat) => {
+                const isActive = selectedCategory === cat;
+                return (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all shrink-0 ${
+                      isActive
+                        ? 'bg-indigo-600 text-white font-bold shadow-md'
+                        : 'bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800'
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
+          {/* ── Interactive 3D Spatial Deck ──────────────────────── */}
+          <div className="mb-12">
+            <SpatialDeck3D
+              events={filteredEvents}
+              onSelectEvent={(ev) => setSelectedEvent(ev)}
+              onOpenRegister={(ev) => setRegisteringEvent(ev)}
+              onShareEvent={(ev) => {
+                setSharingEvent(ev);
+                setIsShareModalOpen(true);
+              }}
+            />
+          </div>
+
+          {/* ── Dedicated Video Showcase & Cinema Stage ──────── */}
+          <div ref={videoSectionRef}>
+            <DepartmentVideoTheater
+              events={events}
+              onSelectEvent={(ev) => setSelectedEvent(ev)}
+              onOpenRegister={(ev) => setRegisteringEvent(ev)}
+            />
+          </div>
+
+          {/* ── Schedule Timeline Section ────────────────────── */}
+          <div className="border-t border-slate-800 pt-12 my-12">
+            <div className="mb-6">
+              <span className="text-xs font-bold uppercase tracking-widest text-indigo-400 flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5" />
+                <span>Symposium Schedule &amp; Timeline</span>
+              </span>
+              <h3 className="font-epic text-2xl font-bold text-white mt-1">
+                Chronological Event Roadmap
+              </h3>
+            </div>
+
+            <VoyageTimeline
+              events={filteredEvents}
+              onSelectEvent={(ev) => setSelectedEvent(ev)}
+            />
+          </div>
         </main>
 
         {/* Footer */}
-        <Footer />
+        <Footer
+          onOpenShare={() => {
+            setSharingEvent(null);
+            setIsShareModalOpen(true);
+          }}
+        />
       </div>
 
-      {/* Modals & Drawers */}
-      {/* 1. Full Event Dossier Modal */}
+      {/* ── Modals & Drawers ───────────────────────────────── */}
+      {/* 1. Full Event Dossier & Video Modal */}
       {selectedEvent && (
         <EventModal
           event={selectedEvent}
@@ -218,7 +255,7 @@ export default function App() {
         />
       )}
 
-      {/* 2. Registration & Dynamic QR Code Modal */}
+      {/* 2. Registration & Dynamic QR Code Pass Modal */}
       {registeringEvent && (
         <RegistrationModal
           event={registeringEvent}
@@ -226,13 +263,23 @@ export default function App() {
         />
       )}
 
-      {/* 3. Event CMS & Integration Guide Drawer */}
+      {/* 3. Event CMS Drawer */}
       <EventManagerDrawer
         isOpen={isCMSOpen}
         onClose={() => setIsCMSOpen(false)}
         events={events}
         onAddEvent={handleAddCustomEvent}
         onResetEvents={handleResetEvents}
+      />
+
+      {/* 4. Global Share Options Modal */}
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => {
+          setIsShareModalOpen(false);
+          setSharingEvent(null);
+        }}
+        event={sharingEvent}
       />
     </div>
   );
